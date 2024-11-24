@@ -1,6 +1,5 @@
 package com.harunbekcan.kmpmoviedbapp.android
 
-import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Shapes
@@ -17,33 +16,42 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun MyApplicationTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
+    darkTheme: Boolean = true,
     content: @Composable () -> Unit
 ) {
     val colors = if (darkTheme) {
         darkColorScheme(
-            primary = Color(0xFFBB86FC),
-            secondary = Color(0xFF03DAC5),
-            tertiary = Color(0xFF3700B3)
+            primary = DarkPrimary,
+            secondary = AccentRed,
+            surface = DarkSurface,
+            background = DarkBackground
         )
     } else {
         lightColorScheme(
-            primary = Color(0xFF6200EE),
-            secondary = Color(0xFF03DAC5),
-            tertiary = Color(0xFF3700B3)
+            primary = Color(0xFF6200EE), // Example light theme primary color
+            secondary = Color(0xFF03DAC5), // Secondary color
+            surface = Color(0xFFFFFFFF),   // Light surface color
+            background = Color(0xFFF0F0F0) // Light background color
         )
     }
+
     val typography = Typography(
-        bodyMedium = TextStyle(
+        bodyLarge = TextStyle(
             fontFamily = FontFamily.Default,
             fontWeight = FontWeight.Normal,
             fontSize = 16.sp
+        ),
+        titleLarge = TextStyle(
+            fontFamily = FontFamily.Default,
+            fontWeight = FontWeight.Bold,
+            fontSize = 22.sp
         )
     )
+
     val shapes = Shapes(
         small = RoundedCornerShape(4.dp),
-        medium = RoundedCornerShape(4.dp),
-        large = RoundedCornerShape(0.dp)
+        medium = RoundedCornerShape(8.dp),
+        large = RoundedCornerShape(16.dp)
     )
 
     MaterialTheme(
@@ -53,3 +61,8 @@ fun MyApplicationTheme(
         content = content
     )
 }
+
+val DarkBackground = Color(0xFF16171D)
+val DarkSurface = Color(0xFF1C1D23)
+val DarkPrimary = Color(0xFF222328)
+val AccentRed = Color(0xFFDC003B)
