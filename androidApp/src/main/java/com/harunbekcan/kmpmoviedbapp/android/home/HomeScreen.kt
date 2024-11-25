@@ -43,12 +43,14 @@ fun HomeScreen(
         ){
             itemsIndexed(
                 uiState.movies,
-                key = {_, movie -> movie.id}
-            ){index, movie ->
+                key = { index, movie ->
+                    "${movie.id}-$index"
+                }
+            ) { index, movie ->
                 MovieListItem(movie = movie, onMovieClick = { navigateToDetail(movie) })
 
-                if (index >= uiState.movies.size -1 && !uiState.loading && !uiState.loadFinished){
-                    LaunchedEffect(key1 = Unit, block = { loadNextMovies(false) })
+                if (index >= uiState.movies.size - 1 && !uiState.loading && !uiState.loadFinished) {
+                    LaunchedEffect(key1 = Unit) { loadNextMovies(false) }
                 }
             }
 
