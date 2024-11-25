@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
-    kotlin("plugin.serialization") version "1.8.0"
+    alias(libs.plugins.kotlinxSerialization)
 }
 
 kotlin {
@@ -25,51 +25,52 @@ kotlin {
     }
 
     sourceSets {
-        commonMain.dependencies {
-            implementation(libs.kotlinx.coroutines.core)
-            implementation(libs.ktor.client.core)
-            implementation(libs.ktor.client.content.negotiation)
-            implementation(libs.ktor.serialization.kotlinx.json)
-            api(libs.koin.core)
-        }
-        commonTest.dependencies {
-            implementation(libs.kotlin.test)
-        }
-
-        // AndroidMain sourceSet
-        val androidMain = sourceSets.getByName("androidMain")
-        androidMain.dependencies {
-            implementation(libs.ktor.client.android)
-            api(libs.koin.android)
-        }
-
-        val iosX64Main = sourceSets.getByName("iosX64Main")
-        val iosArm64Main = sourceSets.getByName("iosArm64Main")
-        val iosSimulatorArm64Main = sourceSets.getByName("iosSimulatorArm64Main")
-
-       sourceSets.create("iosMain") {
+        val commonMain by getting {
             dependencies {
+                implementation(libs.kotlinx.coroutines.core)
+                implementation(libs.ktor.client.core)
+                implementation(libs.ktor.client.content.negotiation)
+                implementation(libs.ktor.serialization.kotlinx.json)
+                api(libs.koin.core)
+            }
+        }
+        val commonTest by getting {
+            dependencies {
+                implementation(kotlin("test"))
+            }
+        }
+        val androidMain by getting {
+            dependencies {
+                implementation(libs.ktor.client.android)
+
+                api(libs.koin.android)
+            }
+        }
+        val androidUnitTest by getting
+        val iosX64Main by getting
+        val iosArm64Main by getting
+        val iosSimulatorArm64Main by getting
+
+        val iosMain by creating {
+            dependencies{
                 implementation(libs.ktor.client.darwin)
             }
-            dependsOn(sourceSets["commonMain"])
+            dependsOn(commonMain)
             iosX64Main.dependsOn(this)
             iosArm64Main.dependsOn(this)
             iosSimulatorArm64Main.dependsOn(this)
         }
-
-        val iosX64Test = sourceSets.getByName("iosX64Test")
-        val iosArm64Test = sourceSets.getByName("iosArm64Test")
-        val iosSimulatorArm64Test = sourceSets.getByName("iosSimulatorArm64Test")
-
-        sourceSets.create("iosTest") {
-            dependsOn(sourceSets["commonTest"])
+        val iosX64Test by getting
+        val iosArm64Test by getting
+        val iosSimulatorArm64Test by getting
+        val iosTest by creating {
+            dependsOn(commonTest)
             iosX64Test.dependsOn(this)
             iosArm64Test.dependsOn(this)
             iosSimulatorArm64Test.dependsOn(this)
         }
     }
 }
-
 
 android {
     namespace = "com.harunbekcan.kmpmoviedbapp"

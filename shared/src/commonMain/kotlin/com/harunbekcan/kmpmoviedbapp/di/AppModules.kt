@@ -24,6 +24,6 @@ private val domainModule = module {
     factory { GetMovieUseCase() }
 }
 
-private val appModules = listOf(domainModule, dataModule, utilityModule)
+private val sharedModules = listOf(domainModule, dataModule, utilityModule)
 
-fun getAppModules() = appModules
+fun getSharedModules() = sharedModules

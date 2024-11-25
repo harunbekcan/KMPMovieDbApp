@@ -21,37 +21,29 @@ fun MyApplicationTheme(
 ) {
     val colors = if (darkTheme) {
         darkColorScheme(
-            primary = DarkPrimary,
-            secondary = AccentRed,
-            surface = DarkSurface,
-            background = DarkBackground
+            primary = Dark4,
+            secondary = Red,
+            surface = Dark2,
+            background = Dark1
         )
     } else {
         lightColorScheme(
-            primary = Color(0xFF6200EE), // Example light theme primary color
-            secondary = Color(0xFF03DAC5), // Secondary color
-            surface = Color(0xFFFFFFFF),   // Light surface color
-            background = Color(0xFFF0F0F0) // Light background color
+            primary = Color(0xFF6200EE),
+            surfaceVariant = Color(0xFF3700B3),
+            secondary = Color(0xFF03DAC5)
         )
     }
-
     val typography = Typography(
         bodyLarge = TextStyle(
             fontFamily = FontFamily.Default,
             fontWeight = FontWeight.Normal,
             fontSize = 16.sp
-        ),
-        titleLarge = TextStyle(
-            fontFamily = FontFamily.Default,
-            fontWeight = FontWeight.Bold,
-            fontSize = 22.sp
         )
     )
-
     val shapes = Shapes(
         small = RoundedCornerShape(4.dp),
-        medium = RoundedCornerShape(8.dp),
-        large = RoundedCornerShape(16.dp)
+        medium = RoundedCornerShape(4.dp),
+        large = RoundedCornerShape(0.dp)
     )
 
     MaterialTheme(
@@ -62,7 +54,7 @@ fun MyApplicationTheme(
     )
 }
 
-val DarkBackground = Color(0xFF16171D)
-val DarkSurface = Color(0xFF1C1D23)
-val DarkPrimary = Color(0xFF222328)
-val AccentRed = Color(0xFFDC003B)
+val Dark1 = Color(red = 22, green = 23, blue = 29)
+val Dark2 = Color(red = 28, green = 29, blue = 35)
+val Dark4 = Color(red = 34, green = 35, blue = 40)
+val Red = Color(red = 220, green = 0, blue = 59)

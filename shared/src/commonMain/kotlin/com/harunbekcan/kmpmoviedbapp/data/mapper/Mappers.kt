@@ -13,4 +13,4 @@ internal fun MovieRemote.toMovie() : Movie {
     )
 }
 
-private fun getImageUrl(posterImage : String) = "https://image.tmdb.org/t/p/w500/${posterImage}"
+private fun getImageUrl(posterImage : String) = "https://image.tmdb.org/t/p/w500/$posterImage"
